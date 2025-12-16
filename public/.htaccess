@@ -19,6 +19,6 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
     
-    # cors
-    Header set Access-Control-Allow-Origin "*"
+    # cors - Removido para evitar duplicação, usando middleware do Laravel
+    # Header set Access-Control-Allow-Origin "*"
 </IfModule>
