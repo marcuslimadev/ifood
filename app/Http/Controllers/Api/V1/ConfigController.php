@@ -32,7 +32,7 @@ class ConfigController extends Controller
 
     function __construct()
     {
-        $map_api_key_server = BusinessSetting::where(['key' => 'map_api_key_server'])->first()?->value ?? null;
+        $map_api_key_server = BusinessSetting::where(['key' => 'map_api_key_server'])->first()?->value ?? 'AIzaSyConSsO9QH4rpNGF42FqA5gk9v9Q61ZxK8';
         $this->map_api_key = $map_api_key_server;
     }
 

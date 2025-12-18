@@ -1167,6 +1167,10 @@ class Helpers
             }
 
             if (!isset($data['value'])) {
+                // Fallback hardcoded for Google Maps API keys
+                if ($key === 'map_api_key' || $key === 'map_api_key_server') {
+                    return 'AIzaSyConSsO9QH4rpNGF42FqA5gk9v9Q61ZxK8';
+                }
                 return null;
             }
 
@@ -1178,6 +1182,10 @@ class Helpers
 
             return $value;
         } catch (\Throwable $th) {
+            // Fallback hardcoded for Google Maps API keys on error
+            if ($key === 'map_api_key' || $key === 'map_api_key_server') {
+                return 'AIzaSyConSsO9QH4rpNGF42FqA5gk9v9Q61ZxK8';
+            }
             return null;
         }
 
