@@ -417,19 +417,31 @@ class CustomerAuthController extends Controller
     }
     public function register(Request $request)
     {
+        // Validação flexível: aceita tanto 'name' quanto 'f_name' e 'l_name'
         $validator = Validator::make($request->all(), [
-            'name' => 'required_without_all:f_name,l_name',
-            'f_name' => 'required_without:name',
-            'l_name' => 'required_without:name',
-            'email' => 'unique:users',
-            'phone' => 'required|unique:users',
+            'name' => 'nullable|string',
+            'f_name' => 'nullable|string',
+            'l_name' => 'nullable|string',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required|min:9|max:14|unique:users',
             'password' => ['required', Password::min(8)],
-
         ], [
-            'name.required_without_all' => translate('The name field is required.'),
-            'f_name.required_without' => translate('The first name field is required.'),
-            'l_name.required_without' => translate('The last name field is required.'),
+            'email.required' => translate('The email field is required.'),
+            'email.email' => translate('The email must be a valid email.'),
+            'email.unique' => translate('The email has already been taken.'),
+            'phone.required' => translate('The phone field is required.'),
+            'phone.unique' => translate('The phone has already been taken.'),
+            'password.required' => translate('The password field is required.'),
         ]);
+
+        // Verificar se pelo menos um conjunto de nome foi fornecido
+        if (!$request->has('name') && (!$request->has('f_name') || !$request->has('l_name'))) {
+            return response()->json([
+                'errors' => [
+                    ['code' => 'name', 'message' => translate('Please provide either full name or first and last name.')]
+                ]
+            ], 403);
+        }
 
         if ($validator->fails()) {
             return response()->json(['errors' => Helpers::error_processor($validator)], 403);
