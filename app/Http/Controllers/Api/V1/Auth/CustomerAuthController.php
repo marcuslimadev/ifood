@@ -418,13 +418,17 @@ class CustomerAuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' => 'required_without_all:f_name,l_name',
+            'f_name' => 'required_without:name',
+            'l_name' => 'required_without:name',
             'email' => 'unique:users',
             'phone' => 'required|unique:users',
             'password' => ['required', Password::min(8)],
 
         ], [
-            'name.required' => translate('The name field is required.'),
+            'name.required_without_all' => translate('The name field is required.'),
+            'f_name.required_without' => translate('The first name field is required.'),
+            'l_name.required_without' => translate('The last name field is required.'),
         ]);
 
         if ($validator->fails()) {
@@ -471,8 +475,8 @@ class CustomerAuthController extends Controller
 
         $name = $request->name;
         $nameParts = explode(' ', $name, 2);
-        $firstName = $nameParts[0];
-        $lastName = $nameParts[1] ?? '';
+        $firstName = $request->f_name ?? $nameParts[0];
+        $lastName = $request->l_name ?? ($nameParts[1] ?? '');
 
         $user = User::create([
             'f_name' => $firstName,

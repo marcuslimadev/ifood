@@ -249,6 +249,11 @@ if (!function_exists('addon_published_status')) {
     }
 }
 
+if (!defined('DOMAIN_POINTED_DIRECTORY')) {
+    // CLI/tests don't bootstrap index.php; default to public to keep asset paths stable.
+    define('DOMAIN_POINTED_DIRECTORY', 'public');
+}
+
 if (!function_exists('dynamicAsset')) {
     function dynamicAsset(string $directory): string
     {
