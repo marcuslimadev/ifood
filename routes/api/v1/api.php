@@ -16,6 +16,10 @@ use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 */
 
 Route::group(['namespace' => 'Api\V1', 'middleware'=>['localization','react']], function () {
+    // Diagnostics routes
+    Route::get('diagnostics', 'DiagnosticsController@index');
+    Route::post('diagnostics/test-post', 'DiagnosticsController@testPost');
+    
     Route::get('zone/list', 'ZoneController@get_zones');
     Route::get('zone/check', 'ZoneController@zonesCheck');
     Route::get('advertisement/list', 'AdvertisementController@get_adds');
