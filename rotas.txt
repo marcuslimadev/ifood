@@ -1,0 +1,22 @@
+
+   Error 
+
+  Typed property App\Http\Controllers\PaytmController::$config_values must not be accessed before initialization
+
+  at app\Http\Controllers\PaytmController.php:47
+     43Ôûò             }
+     44Ôûò 
+     45Ôûò             $config = array(
+     46Ôûò                 'PAYTM_ENVIRONMENT' => ($config->mode == 'test') ? 'TEST' : 'PROD',
+  Ô×£  47Ôûò                 'PAYTM_MERCHANT_KEY' => env('PAYTM_MERCHANT_KEY', $this->config_values->merchant_key),
+     48Ôûò                 'PAYTM_MERCHANT_MID' => env('PAYTM_MERCHANT_MID', $this->config_values->merchant_id),
+     49Ôûò                 'PAYTM_MERCHANT_WEBSITE' => env('PAYTM_MERCHANT_WEBSITE', $this->config_values->merchant_website_link),
+     50Ôûò                 'PAYTM_REFUND_URL' => env('PAYTM_REFUND_URL', $this->config_values->refund_url ?? ''),
+     51Ôûò                 'PAYTM_STATUS_QUERY_URL' => env('PAYTM_STATUS_QUERY_URL', $PAYTM_STATUS_QUERY_NEW_URL),
+
+  1   [internal]:0
+      App\Http\Controllers\PaytmController::__construct(Object(App\Models\PaymentRequest), Object(App\Models\User))
+
+  2   vendor\laravel\framework\src\Illuminate\Container\Container.php:952
+      ReflectionClass::newInstanceArgs()
+

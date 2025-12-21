@@ -1,0 +1,22 @@
+
+   ErrorException 
+
+  Undefined variable $values
+
+  at app\Http\Controllers\SslCommerzPaymentController.php:39
+     35Ôûò             $values = json_decode($config->test_values);
+     36Ôûò         }
+     37Ôûò 
+     38Ôûò         if ($config) {
+  Ô×£  39Ôûò             $this->store_id = $values->store_id;
+     40Ôûò             $this->store_password = $values->store_password;
+     41Ôûò 
+     42Ôûò             # REQUEST SEND TO SSLCOMMERZ
+     43Ôûò             $this->direct_api_url = "https://sandbox.sslcommerz.com/gwprocess/v4/api.php";
+
+  1   app\Http\Controllers\SslCommerzPaymentController.php:39
+      Illuminate\Foundation\Bootstrap\HandleExceptions::Illuminate\Foundation\Bootstrap\{closure}("Undefined variable $values", "C:\Projetos\LaravelIfood\app\Http\Controllers\SslCommerzPaymentController.php")
+
+  2   [internal]:0
+      App\Http\Controllers\SslCommerzPaymentController::__construct(Object(App\Models\PaymentRequest), Object(App\Models\User))
+
